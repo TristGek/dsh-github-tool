@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "GitHub",
-    "description": "Ajoute un espace de travail GitHub dans la barre latérale gauche. Connectez-vous avec un jeton d’accès personnel (la session est conservée), explorez les dépôts publics créés ces 7 derniers jours ayant le plus de stars (Actualiser change le lot), ou recherchez des dépôts avec la syntaxe GitHub. Un clic sur une carte ouvre, dans le plugin, une page façon GitHub : onglets Code/Issues, changement de branche, menu Code avec URL HTTPS/SSH et ZIP, table des fichiers avec le dernier commit, vue du code avec numéros de ligne, README rendu et barre latérale avec statistiques, contributeurs et langages ; le dépôt peut être mis en Star. L’onglet Issues liste les 30 issues ouvertes les plus récentes. Le jeton reste dans le magasin d’identifiants DSH de cette machine. Ouvrez l’espace depuis l’icône GitHub de la barre latérale ou « Ouvrir l’espace de travail GitHub » sur la page du bundle.",
+    "description": "Ajoute un espace de travail GitHub dans la barre latérale gauche : connectez-vous avec un jeton d’accès personnel et gardez la session, explorez les dépôts publics créés ces 7 derniers jours ayant le plus de stars, recherchez des dépôts et consultez un dépôt dans le panneau (onglets Code/Issues, changement de branche, menu de clonage, fichiers et README, Star). Le jeton reste uniquement dans le magasin d’identifiants DSH de cette machine. Ouvrez-le depuis l’icône GitHub de la barre latérale ou « Ouvrir l’espace de travail GitHub » sur la page du bundle ; désactiver le plugin retire le panneau et la connexion.",
     "detail": "docs/DETAIL.fr.md"
   }
 }

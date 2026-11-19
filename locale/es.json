@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "GitHub",
-    "description": "Añade un espacio de trabajo de GitHub en la barra lateral izquierda. Inicia sesión con un token de acceso personal (la sesión se mantiene entre reinicios) y explora los repositorios públicos creados en los últimos 7 días con más stars (Actualizar cambia el lote), o busca repositorios con la sintaxis de GitHub. Al hacer clic en una tarjeta se abre dentro del plugin una página estilo GitHub con pestañas Code/Issues, cambio de rama, menú Code con URLs HTTPS/SSH y ZIP, tabla de archivos con el último commit, vista de código con números de línea, README renderizado y barra lateral con estadísticas, colaboradores y lenguajes; también permite dar Star. La pestaña Issues muestra los 30 issues abiertos más recientes. El token solo se guarda en el almacén de credenciales de DSH de este equipo. Abre el espacio desde el icono de GitHub en la barra lateral o desde «Abrir el espacio de trabajo de GitHub» en la página de este bundle.",
+    "description": "Añade un espacio de trabajo de GitHub en la barra lateral izquierda: inicia sesión con un token de acceso personal y mantén la sesión, explora los repositorios públicos creados en los últimos 7 días con más stars, busca repositorios y consulta un repositorio dentro del panel (pestañas Code/Issues, cambio de rama, menú de clonación, archivos y README, Star). El token solo se guarda en el almacén de credenciales de DSH de este equipo. Ábrelo desde el icono de GitHub de la barra lateral o desde «Abrir el espacio de trabajo de GitHub» en la página de este bundle; si desactivas el plugin, el panel y el inicio de sesión desaparecen.",
     "detail": "docs/DETAIL.es.md"
   }
 }

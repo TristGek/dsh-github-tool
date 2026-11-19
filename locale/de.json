@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "GitHub",
-    "description": "Fügt der linken Leiste einen GitHub-Arbeitsbereich hinzu. Melde dich mit einem persönlichen Zugriffstoken an (die Sitzung bleibt erhalten), stöbere in den öffentlichen Repositories der letzten 7 Tage mit den meisten Sternen (Aktualisieren wechselt das Los) oder suche Repositories mit der GitHub-Syntax. Ein Klick auf eine Karte öffnet im Plugin eine GitHub-ähnliche Repository-Seite: Code-/Issues-Tabs, Branch-Wechsel, Code-Menü mit HTTPS/SSH-URLs und ZIP, Dateitabelle mit letztem Commit, Code-Ansicht mit Zeilennummern, gerendertes README und eine Seitenleiste mit Statistiken, Mitwirkenden und Sprachen; Sterne lassen sich dort ebenfalls vergeben. Der Issues-Tab zeigt die 30 neuesten offenen Issues. Das Token bleibt im DSH-Anmeldeinformationsspeicher dieses Rechners. Öffne den Arbeitsbereich über das GitHub-Symbol in der linken Leiste oder „GitHub-Arbeitsbereich öffnen“ auf der Detailseite dieses Bundles.",
+    "description": "Fügt der linken Leiste einen GitHub-Arbeitsbereich hinzu: Melde dich mit einem persönlichen Zugriffstoken an (Sitzung bleibt erhalten), stöbere in den öffentlichen Repositories der letzten 7 Tage mit den meisten Sternen, suche Repositories und sieh dir ein Repository im Panel an (Code-/Issues-Tabs, Branch-Wechsel, Klon-Menü, Dateien und README, Star). Das Token liegt nur im DSH-Anmeldeinformationsspeicher dieses Rechners. Öffne den Bereich über das GitHub-Symbol in der linken Leiste oder „GitHub-Arbeitsbereich öffnen“ auf der Seite dieses Bundles; beim Ausschalten verschwinden Panel und Anmeldung.",
     "detail": "docs/DETAIL.de.md"
   }
 }
