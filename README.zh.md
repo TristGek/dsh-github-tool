@@ -75,12 +75,25 @@
 
 ## 安装
 
-这是一个无依赖、无需构建的普通包：
+包名是 `@tristgek/dsh-github-tool`（行 id 为 `dsh-github-tool`），无依赖、无需构建。
 
-- 在 **插件 → 添加插件** 里选择 `dsh-github-tool` 目录；或
-- 用插件管理器的 `install_bundle` 指定该目录的绝对路径。
+**从 GitHub 安装（需要 Git）**：打开 **插件 → 添加插件**，填入 Git 规格：
 
-包名是 `@local/dsh-github-tool`，bundle patch 只插入一行 `dsh-github-tool`。安装后默认启用，左侧栏出现 GitHub 入口。
+```
+github:TristGek/dsh-github-tool
+```
+
+需要可复现的版本时固定到某个提交：
+
+```
+github:TristGek/dsh-github-tool#<commit-sha>
+```
+
+安装器会先用 `git ls-remote` 探测仓库，再交由 pnpm 安装，因此机器上需要能在 `PATH` 中找到 `git`；直接填 `https://github.com/…` 地址也可以。
+
+**用下载的目录安装（不需要 Git）**：下载仓库 ZIP、解压，然后在 **插件 → 添加插件** 里选择该目录（或把绝对路径交给插件管理器的 `install_bundle`）。
+
+安装后默认启用，左侧栏出现 GitHub 入口。登录状态保存在 DSH 凭据库里，替换包不会让账号退出。
 
 ## 使用
 
@@ -147,7 +160,7 @@ $env:ELECTRON_RUN_AS_NODE = '1'
 
 ## 卸载
 
-在「插件」页停用或移除 `@local/dsh-github-tool` 即可，面板和登录入口会消失；已保存的令牌仍留在凭据库中，直到在面板里退出登录（移除 bundle 不会删除凭据）。
+在「插件」页停用或移除 `@tristgek/dsh-github-tool` 即可，面板和登录入口会消失；已保存的令牌仍留在凭据库中，直到在面板里退出登录（移除 bundle 不会删除凭据）。
 
 ## 许可证
 

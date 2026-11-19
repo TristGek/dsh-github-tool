@@ -105,14 +105,32 @@ browser half  ──POST /dsh-github-tool/api/<method>──▶  Host half  ─�
 
 ## Install
 
-The bundle is a plain package with no dependencies and no build step.
+The package is `@tristgek/dsh-github-tool` (row id `dsh-github-tool`), has no
+dependencies and no build step.
 
-- **Plugins → Add plugin** and pick the `dsh-github-tool` directory, or
-- plugin manager `install_bundle` with the absolute directory.
+**From GitHub (needs Git).** Open **Plugins → Add plugin** and paste a Git spec:
 
-The package is `@local/dsh-github-tool`; its bundle patch inserts the single row
-`dsh-github-tool`. After installation the bundle is enabled and the GitHub
-entry appears in the left rail.
+```
+github:TristGek/dsh-github-tool
+```
+
+Pin a commit for a reproducible version:
+
+```
+github:TristGek/dsh-github-tool#<commit-sha>
+```
+
+The installer probes the repository with `git ls-remote` and then installs it
+through pnpm, so the machine needs `git` on its `PATH`. An `https://github.com/…`
+URL works as well.
+
+**From a downloaded directory (no Git needed).** Download the repository ZIP,
+unpack it, then choose that folder in **Plugins → Add plugin** (or pass its
+absolute path to the plugin manager's `install_bundle`).
+
+After installation the bundle is enabled and the GitHub entry appears in the
+left rail. The stored sign-in lives in the DSH credential store, so replacing
+the package does not sign you out.
 
 ## Usage
 
@@ -205,7 +223,7 @@ the running app, disable and re-enable the bundle (or refresh the window).
 
 ## Uninstall
 
-Disable or remove `@local/dsh-github-tool` from **Plugins**. The panel and its
+Disable or remove `@tristgek/dsh-github-tool` from **Plugins**. The panel and its
 sign-in entry disappear; a stored token stays in the credential store until you
 sign out from the panel (removing the bundle does not delete credentials).
 

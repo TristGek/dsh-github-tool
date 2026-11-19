@@ -1,5 +1,5 @@
 window.__ModuleLoader__.load({
-  id: '@local/dsh-github-tool',
+  id: '@tristgek/dsh-github-tool',
   factory(require) {
     const React = require('react')
     const h = React.createElement
@@ -8,7 +8,7 @@ window.__ModuleLoader__.load({
     /** Locale namespace and the id shared by the sidebar entry and its panel. */
     const NS = 'dsh-github-tool'
     const PANEL_ID = 'github'
-    const PACKAGE_NAME = '@local/dsh-github-tool'
+    const PACKAGE_NAME = '@tristgek/dsh-github-tool'
     const API_ROUTE = 'dsh-github-tool/api'
 
     const zh = {

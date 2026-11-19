@@ -1,10 +1,22 @@
 {
-  "name": "@local/dsh-github-tool",
+  "name": "@tristgek/dsh-github-tool",
   "version": "1.0.0",
   "private": true,
   "type": "module",
   "license": "MIT",
   "description": "GitHub workspace for DeepSeek Harness: sign in with a personal access token, discover recently trending repositories, and search GitHub from the sidebar.",
+  "author": "TristGek (https://github.com/TristGek)",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TristGek/dsh-github-tool.git"
+  },
+  "homepage": "https://github.com/TristGek/dsh-github-tool#readme",
+  "bugs": {
+    "url": "https://github.com/TristGek/dsh-github-tool/issues"
+  },
+  "engines": {
+    "dsh": ">=0.2.2-rc.5"
+  },
   "icon": "./icon.svg",
   "exports": {
     ".": "./index.js",
