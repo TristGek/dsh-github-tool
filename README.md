@@ -53,6 +53,10 @@ it, and pick that folder in **Plugins → Add plugin**.
 ## Usage
 
 1. Click the **GitHub** icon in the left rail.
+   If the launcher was unpinned (its hover button **Unpin from left sidebar**), it
+   is still listed in the panel list's **More** menu at the bottom of the rail:
+   press the pin button on the GitHub row to show it again. Unpinning only lasts
+   for the current page, so reloading the window also restores every launcher.
 2. Sign in with a personal access token from
    <https://github.com/settings/tokens>.
    - No scope is needed to search public repositories and read public data.
