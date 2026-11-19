@@ -1,0 +1,3 @@
+- insert:
+    - id: dsh-github-tool
+      name: '@local/dsh-github-tool'

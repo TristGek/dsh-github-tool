@@ -1,0 +1,7 @@
+{
+  "meta": {
+    "title": "GitHub",
+    "description": "A GitHub workspace between the Plugins and Automation entries of the left rail: sign in with a personal access token and stay signed in, browse the repositories created in the last 7 days with the most stars (Refresh picks another batch), and search repositories with GitHub's own query syntax. Clicking a repository card opens a GitHub-style repository page inside the plugin: Code/Issues tabs, a filterable branch switcher, a green Code menu with HTTPS/SSH clone URLs, copy, and ZIP download, a file table with the latest commit row, folders that navigate deeper, a line-numbered code view, a rendered README, and an About sidebar with description, topics, stats, contributors, and languages; it can star the repository or use \"Open in GitHub\". The card click itself stays inside the app. The Issues tab lists the 30 newest open issues; each issue opens on GitHub. Open the workspace from the GitHub icon in the left rail, or from this bundle's detail page with \"Open the GitHub workspace\". The token is kept only in this machine's DSH credential store; search and recommendation requests go from this machine's Host to the GitHub REST API and nothing about you is sent anywhere else. Turning the plugin off removes the panel and its sign-in; a stored token stays in the credential store until you sign out from the panel.",
+    "detail": "docs/DETAIL.md"
+  }
+}
