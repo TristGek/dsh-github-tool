@@ -164,6 +164,7 @@ dsh-github-tool/
 ├── locale/             Plugin-manager display metadata (en, zh)
 ├── docs/               Detail document and preview image
 ├── icon.svg            Octocat-style bundle icon
+├── LICENSE             MIT license
 ├── README.md           This file
 └── README.zh.md        Chinese README
 ```
@@ -207,3 +208,7 @@ the running app, disable and re-enable the bundle (or refresh the window).
 Disable or remove `@local/dsh-github-tool` from **Plugins**. The panel and its
 sign-in entry disappear; a stored token stays in the credential store until you
 sign out from the panel (removing the bundle does not delete credentials).
+
+## License
+
+[MIT](LICENSE) © 2026 TristGek

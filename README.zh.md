@@ -115,6 +115,7 @@ dsh-github-tool/
 ├── locale/             插件管理页显示元数据（en、zh）
 ├── docs/               详情文档与预览图
 ├── icon.svg            Octocat 风格的 bundle 图标
+├── LICENSE             MIT 许可证
 ├── README.md           英文 README
 └── README.zh.md        本文件
 ```
@@ -147,3 +148,7 @@ $env:ELECTRON_RUN_AS_NODE = '1'
 ## 卸载
 
 在「插件」页停用或移除 `@local/dsh-github-tool` 即可，面板和登录入口会消失；已保存的令牌仍留在凭据库中，直到在面板里退出登录（移除 bundle 不会删除凭据）。
+
+## 许可证
+
+[MIT](LICENSE) © 2026 TristGek

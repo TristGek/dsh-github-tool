@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
+  "license": "MIT",
   "description": "GitHub workspace for DeepSeek Harness: sign in with a personal access token, discover recently trending repositories, and search GitHub from the sidebar.",
   "icon": "./icon.svg",
   "exports": {
@@ -20,7 +21,8 @@
     "docs",
     "icon.svg",
     "README.md",
-    "README.zh.md"
+    "README.zh.md",
+    "LICENSE"
   ],
   "dsh": {
     "bundle": {
