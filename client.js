@@ -47,18 +47,6 @@ window.__ModuleLoader__.load({
     let sidebarOrder = SIDEBAR_ORDER_DEFAULT
     let mountSidebarAt = null
     let readPanelOrders = null
-    const sidebarOrderListeners = new Set()
-
-    function currentSidebarOrder() {
-      return sidebarOrder
-    }
-
-    function subscribeSidebarOrder(listener) {
-      sidebarOrderListeners.add(listener)
-      return () => {
-        sidebarOrderListeners.delete(listener)
-      }
-    }
 
     function moveSidebarOrder(delta) {
       if (typeof mountSidebarAt !== 'function') return
@@ -85,7 +73,6 @@ window.__ModuleLoader__.load({
       sidebarOrder = next
       writeSidebarOrder(next)
       mountSidebarAt(next)
-      for (const listener of sidebarOrderListeners) listener(next)
     }
 
     const zh = {
@@ -1451,7 +1438,6 @@ a.dsg-profile-login:hover{text-decoration:underline}
 .dsg-head-side{display:flex;flex-direction:column;align-items:flex-end;gap:8px}
 .dsg-order{display:inline-flex;align-items:center;gap:6px;height:24px;font-size:12px;line-height:18px;color:var(--dsw-alias-label-secondary)}
 .dsg-order-label{white-space:nowrap}
-.dsg-order-value{min-width:16px;text-align:center;font-variant-numeric:tabular-nums;color:var(--dsw-alias-label-primary)}
 .dsg-order-btn{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;padding:0;border:0.5px solid var(--dsw-alias-border-l2);border-radius:var(--dsw-radius-sm);background:transparent;color:var(--dsw-alias-label-secondary);cursor:pointer}
 .dsg-order-btn:hover{color:var(--dsw-alias-label-primary);background:var(--dsw-alias-bg-layer-2)}
 .dsg-order-up{display:inline-flex;transform:rotate(180deg)}
@@ -3751,13 +3737,10 @@ a.dsg-profile-login:hover{text-decoration:underline}
       }
       /** Small control that nudges this plugin's launcher position in the global panel list. */
       function SidebarOrderControl({ t }) {
-        const [order, setOrder] = useState(() => currentSidebarOrder())
-        useEffect(() => subscribeSidebarOrder(setOrder), [])
         return h(
           'div',
           { className: 'dsg-order' },
           h('span', { className: 'dsg-order-label' }, t('sidebar.order')),
-          h('span', { className: 'dsg-order-value' }, String(order)),
           h(
             'button',
             {
