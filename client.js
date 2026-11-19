@@ -3331,14 +3331,17 @@ a.dsg-profile-login:hover{text-decoration:underline}
             h(
               'div',
               { className: 'dsg-detail-actions' },
-              detail === undefined
-                ? h('span', { className: 'dsg-skel dsg-skel-btn', 'aria-hidden': true })
-                : h(
-                    'a',
-                    { className: 'dsg-btn', href: detail.url, target: '_blank', rel: 'noreferrer noopener' },
-                    h(ExternalGlyph),
-                    t('detail.openExternal'),
-                  ),
+              h(
+                'a',
+                {
+                  className: 'dsg-btn',
+                  href: detail === undefined ? `https://github.com/${owner}/${shortName}` : detail.url,
+                  target: '_blank',
+                  rel: 'noreferrer noopener',
+                },
+                h(ExternalGlyph),
+                t('detail.openExternal'),
+              ),
             ),
           ),
           h(
