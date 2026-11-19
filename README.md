@@ -57,6 +57,9 @@ it, and pick that folder in **Plugins → Add plugin**.
    is still listed in the panel list's **More** menu at the bottom of the rail:
    press the pin button on the GitHub row to show it again. Unpinning only lasts
    for the current page, so reloading the window also restores every launcher.
+   To move the launcher within the panel list, use the small **Sidebar position**
+   control on the GitHub home page (up/down buttons and the current order); the
+   shell sorts launchers by that number and the choice is remembered locally.
 2. Sign in with a personal access token from
    <https://github.com/settings/tokens>.
    - No scope is needed to search public repositories and read public data.

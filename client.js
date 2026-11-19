@@ -11,8 +11,88 @@ window.__ModuleLoader__.load({
     const PACKAGE_NAME = '@tristgek/dsh-github-tool'
     const API_ROUTE = 'dsh-github-tool/api'
 
+    /**
+     * The sidebar launcher's registration order. The shell sorts the global
+     * panel list by this number ascending, so this plugin can only move its own
+     * launcher by re-registering; the chosen value is kept in local storage.
+     */
+    const SIDEBAR_ORDER_KEY = 'dsh-github-tool/sidebar-order'
+    const SIDEBAR_ORDER_DEFAULT = 5
+    const SIDEBAR_ORDER_MIN = -50
+    const SIDEBAR_ORDER_MAX = 50
+
+    function readSidebarOrder() {
+      try {
+        const raw = window.localStorage.getItem(SIDEBAR_ORDER_KEY)
+        if (raw !== null) {
+          const value = Number.parseInt(raw, 10)
+          if (Number.isFinite(value)) {
+            return Math.max(SIDEBAR_ORDER_MIN, Math.min(SIDEBAR_ORDER_MAX, value))
+          }
+        }
+      } catch {
+        // Storage can be unavailable; fall back to the default position.
+      }
+      return SIDEBAR_ORDER_DEFAULT
+    }
+
+    function writeSidebarOrder(value) {
+      try {
+        window.localStorage.setItem(SIDEBAR_ORDER_KEY, String(value))
+      } catch {
+        // A failed write only loses the preference, not the current order.
+      }
+    }
+
+    let sidebarOrder = SIDEBAR_ORDER_DEFAULT
+    let mountSidebarAt = null
+    let readPanelOrders = null
+    const sidebarOrderListeners = new Set()
+
+    function currentSidebarOrder() {
+      return sidebarOrder
+    }
+
+    function subscribeSidebarOrder(listener) {
+      sidebarOrderListeners.add(listener)
+      return () => {
+        sidebarOrderListeners.delete(listener)
+      }
+    }
+
+    function moveSidebarOrder(delta) {
+      if (typeof mountSidebarAt !== 'function') return
+      // Jump to the adjacent launcher group instead of by one numeric point, so
+      // the visible position changes even when the neighbours sit at 0 and 10.
+      const others =
+        typeof readPanelOrders === 'function'
+          ? readPanelOrders().filter((entry) => entry.id !== PANEL_ID)
+          : []
+      let target = sidebarOrder + delta
+      if (others.length > 0) {
+        if (delta < 0) {
+          const smaller = others.filter((entry) => entry.order < sidebarOrder).map((entry) => entry.order)
+          if (smaller.length === 0) return
+          target = Math.max(...smaller) - 1
+        } else if (delta > 0) {
+          const larger = others.filter((entry) => entry.order > sidebarOrder).map((entry) => entry.order)
+          if (larger.length === 0) return
+          target = Math.min(...larger) + 1
+        }
+      }
+      const next = Math.max(SIDEBAR_ORDER_MIN, Math.min(SIDEBAR_ORDER_MAX, Math.round(target)))
+      if (next === sidebarOrder) return
+      sidebarOrder = next
+      writeSidebarOrder(next)
+      mountSidebarAt(next)
+      for (const listener of sidebarOrderListeners) listener(next)
+    }
+
     const zh = {
       panel: 'GitHub',
+      'sidebar.order': '侧栏位置',
+      'sidebar.moveUp': '上移',
+      'sidebar.moveDown': '下移',
       title: 'GitHub',
       subtitle: '登录 GitHub 账号、发现最近热门的新仓库，或直接搜索 GitHub。',
       'account.loading': '正在检查登录状态…',
@@ -146,6 +226,9 @@ window.__ModuleLoader__.load({
 
     const en = {
       panel: 'GitHub',
+      'sidebar.order': 'Sidebar position',
+      'sidebar.moveUp': 'Move up',
+      'sidebar.moveDown': 'Move down',
       title: 'GitHub',
       subtitle: 'Sign in to GitHub, browse recently trending repositories, or search GitHub directly.',
       'account.loading': 'Checking sign-in…',
@@ -281,6 +364,9 @@ window.__ModuleLoader__.load({
 
     const ja = {
       panel: 'GitHub',
+      'sidebar.order': 'サイドバーの位置',
+      'sidebar.moveUp': '上へ移動',
+      'sidebar.moveDown': '下へ移動',
       title: 'GitHub',
       subtitle: 'GitHub にサインインして、最近の人気リポジトリを眺めたり、GitHub を直接検索したりできます。',
       'account.loading': 'サインイン状態を確認中…',
@@ -419,6 +505,9 @@ window.__ModuleLoader__.load({
 
     const es = {
       panel: 'GitHub',
+      'sidebar.order': 'Posición en la barra',
+      'sidebar.moveUp': 'Subir',
+      'sidebar.moveDown': 'Bajar',
       title: 'GitHub',
       subtitle: 'Inicia sesión en GitHub para descubrir repositorios populares recientes o buscar en GitHub directamente.',
       'account.loading': 'Comprobando la sesión…',
@@ -557,6 +646,9 @@ window.__ModuleLoader__.load({
 
     const fr = {
       panel: 'GitHub',
+      'sidebar.order': 'Position dans la barre',
+      'sidebar.moveUp': 'Monter',
+      'sidebar.moveDown': 'Descendre',
       title: 'GitHub',
       subtitle: 'Connectez-vous à GitHub, découvrez les dépôts populaires récents ou recherchez directement sur GitHub.',
       'account.loading': 'Vérification de la connexion…',
@@ -695,6 +787,9 @@ window.__ModuleLoader__.load({
 
     const de = {
       panel: 'GitHub',
+      'sidebar.order': 'Position in der Seitenleiste',
+      'sidebar.moveUp': 'Nach oben',
+      'sidebar.moveDown': 'Nach unten',
       title: 'GitHub',
       subtitle: 'Melde dich bei GitHub an, entdecke aktuelle beliebte Repositories oder durchsuche GitHub direkt.',
       'account.loading': 'Anmeldestatus wird geprüft…',
@@ -834,6 +929,9 @@ window.__ModuleLoader__.load({
 
     const ru = {
       panel: 'GitHub',
+      'sidebar.order': 'Позиция на панели',
+      'sidebar.moveUp': 'Вверх',
+      'sidebar.moveDown': 'Вниз',
       title: 'GitHub',
       subtitle: 'Войдите в GitHub, чтобы смотреть недавно популярные репозитории или искать на GitHub напрямую.',
       'account.loading': 'Проверка входа…',
@@ -973,6 +1071,9 @@ window.__ModuleLoader__.load({
 
     const pt = {
       panel: 'GitHub',
+      'sidebar.order': 'Posição na barra',
+      'sidebar.moveUp': 'Mover para cima',
+      'sidebar.moveDown': 'Mover para baixo',
       title: 'GitHub',
       subtitle: 'Entre no GitHub, descubra repositórios populares recentes ou pesquise diretamente no GitHub.',
       'account.loading': 'Verificando a sessão…',
@@ -1346,6 +1447,14 @@ a.dsg-profile-login:hover{text-decoration:underline}
 .dsg-issue-comments{flex:none;font-size:12px;color:var(--dsw-alias-label-secondary)}
 .dsg-issue-more{margin-top:4px;font-size:12px;line-height:18px;color:var(--dsw-alias-link);text-decoration:none}
 .dsg-issue-more:hover{text-decoration:underline}
+.dsg-home-tools{display:flex;justify-content:flex-end;margin-bottom:10px}
+.dsg-head-side{display:flex;flex-direction:column;align-items:flex-end;gap:8px}
+.dsg-order{display:inline-flex;align-items:center;gap:6px;height:24px;font-size:12px;line-height:18px;color:var(--dsw-alias-label-secondary)}
+.dsg-order-label{white-space:nowrap}
+.dsg-order-value{min-width:16px;text-align:center;font-variant-numeric:tabular-nums;color:var(--dsw-alias-label-primary)}
+.dsg-order-btn{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;padding:0;border:0.5px solid var(--dsw-alias-border-l2);border-radius:var(--dsw-radius-sm);background:transparent;color:var(--dsw-alias-label-secondary);cursor:pointer}
+.dsg-order-btn:hover{color:var(--dsw-alias-label-primary);background:var(--dsw-alias-bg-layer-2)}
+.dsg-order-up{display:inline-flex;transform:rotate(180deg)}
 .dsg-skel{background:color-mix(in srgb,var(--dsw-alias-label-primary) 9%,transparent);border-radius:6px;animation:dsg-skel-pulse 1.4s ease-in-out infinite}
 .dsg-skel-title{width:96px;height:14px;margin:0 0 12px}
 .dsg-skel-line{width:100%;height:10px;margin:8px 0}
@@ -3640,6 +3749,40 @@ a.dsg-profile-login:hover{text-decoration:underline}
           ),
         )
       }
+      /** Small control that nudges this plugin's launcher position in the global panel list. */
+      function SidebarOrderControl({ t }) {
+        const [order, setOrder] = useState(() => currentSidebarOrder())
+        useEffect(() => subscribeSidebarOrder(setOrder), [])
+        return h(
+          'div',
+          { className: 'dsg-order' },
+          h('span', { className: 'dsg-order-label' }, t('sidebar.order')),
+          h('span', { className: 'dsg-order-value' }, String(order)),
+          h(
+            'button',
+            {
+              className: 'dsg-order-btn',
+              type: 'button',
+              title: t('sidebar.moveUp'),
+              'aria-label': t('sidebar.moveUp'),
+              onClick: () => moveSidebarOrder(-1),
+            },
+            h('span', { className: 'dsg-order-up' }, h(ChevronDownGlyph, { size: 12 })),
+          ),
+          h(
+            'button',
+            {
+              className: 'dsg-order-btn',
+              type: 'button',
+              title: t('sidebar.moveDown'),
+              'aria-label': t('sidebar.moveDown'),
+              onClick: () => moveSidebarOrder(1),
+            },
+            h(ChevronDownGlyph, { size: 12 }),
+          ),
+        )
+      }
+
       function GithubPanel() {
         const t = useTranslate()
         const locale = useLocale()
@@ -3838,6 +3981,7 @@ a.dsg-profile-login:hover{text-decoration:underline}
                       ? h(
                           'div',
                           { className: 'dsg-me-wrap' },
+                          h('div', { className: 'dsg-home-tools' }, h(SidebarOrderControl, { t })),
                           h(AccountCard, {
                             t,
                             locale,
@@ -3855,7 +3999,12 @@ a.dsg-profile-login:hover{text-decoration:underline}
                             h('h1', null, t('title')),
                             h('p', { className: 'dsg-sub' }, t('subtitle')),
                           ),
-                          h(AccountArea, { t, auth }),
+                          h(
+                            'div',
+                            { className: 'dsg-head-side' },
+                            h(SidebarOrderControl, { t }),
+                            h(AccountArea, { t, auth }),
+                          ),
                         ),
                     auth.status === 'out'
                       ? h(LoginCard, {
@@ -3953,18 +4102,52 @@ a.dsg-profile-login:hover{text-decoration:underline}
         const t = ctx.locale.bind(NS)
         const { GithubPanel, DetailActions, PanelIcon } = createPanel(ctx)
 
-        ctx.slots.inject('sidebar.panellist', () =>
-          ctx.slots.register(
-            {
-              name: 'sidebar.panellist',
-              id: PANEL_ID,
-              order: 5,
-              label: () => t('panel'),
-              locale: NS,
-            },
-            PanelIcon,
-          ),
-        )
+        sidebarOrder = readSidebarOrder()
+        let sidebarPanel = null
+        const mountSidebarPanel = (order) => {
+          if (sidebarPanel !== null) {
+            try {
+              sidebarPanel()
+            } catch {
+              // A stale declaration reconciler is already stopped; continue with the new order.
+            }
+          }
+          sidebarPanel = ctx.slots.inject('sidebar.panellist', () =>
+            ctx.slots.register(
+              {
+                name: 'sidebar.panellist',
+                id: PANEL_ID,
+                order,
+                label: () => t('panel'),
+                locale: NS,
+              },
+              PanelIcon,
+            ),
+          )
+        }
+        mountSidebarAt = mountSidebarPanel
+        mountSidebarPanel(sidebarOrder)
+        readPanelOrders = () => {
+          try {
+            return ctx.slots.entriesOfSlot('sidebar.panellist').map((entry) => {
+              const options = entry !== null && typeof entry === 'object' ? entry.options : undefined
+              return {
+                id: options !== undefined && typeof options.id === 'string' ? options.id : '',
+                order: options !== undefined && typeof options.order === 'number' ? options.order : 0,
+              }
+            })
+          } catch {
+            return []
+          }
+        }
+        ctx.effect(() => () => {
+          mountSidebarAt = null
+          readPanelOrders = null
+          if (sidebarPanel !== null) {
+            sidebarPanel()
+            sidebarPanel = null
+          }
+        })
 
         ctx.slots.inject('main', () =>
           ctx.slots.register(

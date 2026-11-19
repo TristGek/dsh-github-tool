@@ -37,6 +37,8 @@ github:TristGek/dsh-github-tool
    如果入口被取消固定（悬停按钮「从左侧栏取消固定」），它仍会列在左侧栏最下方
    **「更多」** 菜单里：点 GitHub 那一行右侧的图钉按钮即可恢复。取消固定只在当前
    页面有效，刷新窗口也会恢复所有入口。
+   想在面板列表里调整入口位置，可以用 GitHub 首页的 **「侧栏位置」** 控件
+   （上移/下移按钮和当前序号）；侧栏按这个数值排序，选择会记在本地。
 2. 用 <https://github.com/settings/tokens> 生成的个人访问令牌登录。
    - 只搜索公开仓库、读取公开数据时不需要任何 scope。
    - Star 他人公开仓库需要 **Classic token** 并勾选 `public_repo`（私有仓库用 `repo`）；GitHub 不允许 Fine-grained token Star 非本人或非本组织的仓库。
