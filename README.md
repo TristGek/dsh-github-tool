@@ -1,9 +1,8 @@
 # GitHub workspace for DeepSeek Harness
 
-A local DSH bundle that adds a GitHub workspace to the left rail, between
-**Plugins** and **Automation tasks**: sign in, discover recently popular
-repositories, search, browse a repository's files and issues, read its README,
-clone it, and star it without leaving the app.
+A local DSH bundle that adds a GitHub workspace to the left rail: sign in,
+discover recently popular repositories, search, browse a repository's files and
+issues, read its README, clone it, and star it without leaving the app.
 
 English | [中文](README.zh.md)
 

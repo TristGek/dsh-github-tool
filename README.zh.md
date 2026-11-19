@@ -1,6 +1,6 @@
 # DeepSeek Harness 的 GitHub 工作区
 
-一个本地 DSH bundle，在左侧栏「插件」和「自动化任务」之间新增 GitHub 工作区：登录、发现最近热门仓库、搜索、浏览仓库文件与 Issue、阅读 README、克隆和 Star，全程不用离开应用。
+一个本地 DSH bundle，在左侧栏新增 GitHub 工作区：登录、发现最近热门仓库、搜索、浏览仓库文件与 Issue、阅读 README、克隆和 Star，全程不用离开应用。
 
 [English](README.md) | 中文
 
