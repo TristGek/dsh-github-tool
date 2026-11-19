@@ -4,6 +4,9 @@
 
 [English](README.md) | 中文
 
+界面跟随 DSH 的界面语言：English、中文、日本語、Español、Français、Deutsch、
+Русский、Português (BR)。
+
 ## 功能
 
 - **登录保持**：用 GitHub 个人访问令牌登录，令牌经 `GET /user` 校验后存进 DSH 凭据库（`dsh-github-tool/account`），不会回传浏览器，重启后自动恢复。

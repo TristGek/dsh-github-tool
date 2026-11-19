@@ -7,6 +7,9 @@ clone it, and star it without leaving the app.
 
 English | [中文](README.zh.md)
 
+The interface follows the DSH language setting: English, 中文, 日本語, Español,
+Français, Deutsch, Русский, and Português (BR).
+
 ## Features
 
 - **Persistent sign-in** with a GitHub personal access token. The token is
