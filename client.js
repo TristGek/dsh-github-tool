@@ -1454,6 +1454,19 @@ a.dsg-profile-login:hover{text-decoration:underline}
 .dsg-skel-count{min-width:22px;height:18px;border-radius:9px}
 .dsg-skel-heading{width:180px;height:22px;margin:6px 0 14px}
 .dsg-skel-inline{display:inline-block;width:72px;height:12px;margin:0}
+.dsg-card-skeleton{pointer-events:none;user-select:none}
+.dsg-card-skeleton .dsg-skel{border-radius:5px}
+.dsg-skel-avatar{width:32px;height:32px;border-radius:9999px;flex:none}
+.dsg-skel-owner{width:86px;height:11px}
+.dsg-skel-name{width:140px;height:14px;margin-top:6px}
+.dsg-skel-star{width:72px;height:28px;flex:none;border-radius:var(--dsw-radius-sm)}
+.dsg-skel-desc{display:flex;flex-direction:column;gap:8px}
+.dsg-skel-desc .dsg-skel{height:10px}
+.dsg-skel-desc .dsg-skel:nth-child(1){width:100%}
+.dsg-skel-desc .dsg-skel:nth-child(2){width:94%}
+.dsg-skel-desc .dsg-skel:nth-child(3){width:62%}
+.dsg-skel-meta{display:flex;gap:10px}
+.dsg-skel-meta .dsg-skel{width:54px;height:11px}
 @keyframes dsg-skel-pulse{0%,100%{opacity:.5}50%{opacity:1}}
 @media (prefers-reduced-motion:reduce){.dsg-skel{animation:none;opacity:.65}}
 `
@@ -2184,6 +2197,42 @@ a.dsg-profile-login:hover{text-decoration:underline}
       )
     }
 
+    /**
+     * Placeholder card that keeps the repository card's shape while a list is
+     * loading, so the list does not jump when the real cards arrive.
+     * @param props - `lines` is the number of description lines to reserve.
+     */
+    function RepoCardSkeleton({ lines = 2 }) {
+      return h(
+        'article',
+        { className: 'dsg-card dsg-card-skeleton', 'aria-hidden': true },
+        h(
+          'div',
+          { className: 'dsg-card-head' },
+          h('div', { className: 'dsg-skel dsg-skel-avatar' }),
+          h(
+            'div',
+            { className: 'dsg-card-id' },
+            h('div', { className: 'dsg-skel dsg-skel-owner' }),
+            h('div', { className: 'dsg-skel dsg-skel-name' }),
+          ),
+          h('div', { className: 'dsg-skel dsg-skel-star' }),
+        ),
+        h(
+          'div',
+          { className: 'dsg-skel-desc' },
+          ...Array.from({ length: lines }, (_, index) => h('div', { key: index, className: 'dsg-skel' })),
+        ),
+        h(
+          'div',
+          { className: 'dsg-skel-meta' },
+          h('div', { className: 'dsg-skel' }),
+          h('div', { className: 'dsg-skel' }),
+          h('div', { className: 'dsg-skel' }),
+        ),
+      )
+    }
+
     /** Bundles the panel's remote state, translations, and DOM shell. */
     function createPanel(ctx) {
       function useTranslate() {
@@ -2458,7 +2507,11 @@ a.dsg-profile-login:hover{text-decoration:underline}
           ),
           recs.error === '' ? null : h(Alert, { message: recs.error }),
           loading && count === 0
-            ? h('div', { className: 'dsg-state', role: 'status' }, h(Spinner), t('recs.loading'))
+            ? h(
+                'div',
+                { className: 'dsg-grid', role: 'status', 'aria-busy': true, 'aria-label': t('recs.loading') },
+                ...Array.from({ length: 6 }, (_, index) => h(RepoCardSkeleton, { key: index, lines: 3 })),
+              )
             : count === 0
               ? recs.status === 'error'
                 ? null
@@ -2658,12 +2711,19 @@ a.dsg-profile-login:hover{text-decoration:underline}
           ),
           notice === '' ? null : h(Alert, { message: notice }),
           state.error === '' ? null : h(Alert, { message: state.error }),
-          loading ? h('div', { className: 'dsg-state', role: 'status' }, h(Spinner), t('search.loading')) : null,
-          state.items.length === 0
-            ? loading || state.error !== ''
-              ? null
-              : h('div', { className: 'dsg-state' }, t('search.empty'))
-            : h(
+          loading
+            ? h(
+                'div',
+                { className: 'dsg-results', role: 'status', 'aria-busy': true, 'aria-label': t('search.loading') },
+                ...Array.from({ length: state.perPage }, (_, index) =>
+                  h(RepoCardSkeleton, { key: index, lines: 2 }),
+                ),
+              )
+            : state.items.length === 0
+              ? state.error !== ''
+                ? null
+                : h('div', { className: 'dsg-state' }, t('search.empty'))
+              : h(
                 'div',
                 { className: 'dsg-results', 'aria-busy': loading },
                 ...state.items.map((repo) => {
