@@ -2715,7 +2715,7 @@ a.dsg-profile-login:hover{text-decoration:underline}
             ? h(
                 'div',
                 { className: 'dsg-results', role: 'status', 'aria-busy': true, 'aria-label': t('search.loading') },
-                ...Array.from({ length: state.perPage }, (_, index) =>
+                ...Array.from({ length: Math.min(perPage, 10) }, (_, index) =>
                   h(RepoCardSkeleton, { key: index, lines: 2 }),
                 ),
               )
